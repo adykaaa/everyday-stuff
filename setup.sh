@@ -56,4 +56,4 @@ echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
 sudo apt update && sudo apt-get install terraform -y
 python3 -m pip install --user ansible
 
-echo " =============================== Copy .vimrc from the repo, then open vim and do PlugInstall, CocInstall coc-pyright, CocInstall coc-tsserver, CocInstall coc-go ============================="
+echo " \n \n \n ==== Copy .vimrc from the repo, then open vim and do PlugInstall, CocInstall coc-pyright, CocInstall coc-tsserver, CocInstall coc-go ===="
