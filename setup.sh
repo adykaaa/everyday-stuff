@@ -3,11 +3,12 @@
 #installing zsh and ohmyzsh
 sudo apt-get update && apt-get install zsh curl -y && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-sudo apt-get install terminator
+sudo apt-get install terminator -y
 
 #installing docker
 sudo apt-get install \
     ca-certificates \
+    curl \
     gnupg \
     lsb-release \
     software-properties-common \
@@ -29,7 +30,7 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 sudo apt-get update && sudo apt-get install -y kubectl && echo "source <(kubectl completion zsh)" >> ~/.zshrc
 
 #setting up dependencies for vim
-sudo apt-get install -y nodejs npm ripgrep python3 python3-pip python3-venv wget
+sudo apt-get install -y vim nodejs npm ripgrep python3 python3-pip python3-venv wget
 sudo npm cache clean -f && sudo npm install -g n && sudo n stable && sudo npm install --global yarn
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -55,4 +56,4 @@ echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
 sudo apt update && sudo apt-get install terraform -y
 python3 -m pip install --user ansible
 
-echo "Copy .vimrc from the repo, then open vim and do PlugInstall, CocInstall coc-pyright, CocInstall coc-tsserver, CocInstall coc-go"
+echo " =============================== Copy .vimrc from the repo, then open vim and do PlugInstall, CocInstall coc-pyright, CocInstall coc-tsserver, CocInstall coc-go ============================="
