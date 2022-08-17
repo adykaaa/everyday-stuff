@@ -8,7 +8,6 @@ sudo apt-get install terminator
 #installing docker
 sudo apt-get install \
     ca-certificates \
-    curl \
     gnupg \
     lsb-release \
     software-properties-common \
