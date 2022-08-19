@@ -4,7 +4,6 @@ syntax on
 " Set FZF Default to Ripgrep (must install ripgrep)
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --no-ignore-vcs'
 let g:coc_disable_startup_warning = 1
-
 " Options viewable by using :options
 " Set options viewable by using :set all
 " Or help for individual configs can be accessed :help <name>
@@ -38,9 +37,6 @@ call plug#begin('~/.vim/plugged')
 " Make your Vim/Neovim as smart as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Auto close brackets "
-Plug 'jiangmiao/auto-pairs'
-
 " Formatter
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
@@ -52,6 +48,8 @@ Plug 'itchyny/lightline.vim'
 
 " Directory tree
 Plug 'scrooloose/nerdtree'
+" Indenting YAML lines
+Plug 'Yggdroot/indentLine'
 
 " Visualize undo history tree (in vim undo is not linear)
 Plug 'mbbill/undotree'
@@ -72,9 +70,6 @@ Plug 'ambv/black'
 " Gruvbox color theme
 Plug 'morhetz/gruvbox'
 
-"Yaml indent line"
-Plug 'Yggdroot/indentLine'
-
 " Vim-monokai-tasty color theme
 Plug 'patstockwell/vim-monokai-tasty'
 
@@ -83,6 +78,7 @@ call plug#end()
 " Set mapleader to space
 let mapleader = " "
 " Maps
+nnoremap <C-t> :tabnew<CR>
 nmap <leader>hk :vsplit ~/.vim/hotkeys<cr>
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
@@ -150,14 +146,14 @@ endfunction
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent><expr> <c-CR> coc#refresh()
 endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              "\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
