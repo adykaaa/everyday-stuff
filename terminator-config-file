@@ -1,0 +1,46 @@
+[global_config]
+  enabled_plugins = LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler, TerminatorThemes
+  suppress_multiple_term_dialog = True
+  always_split_with_profile = True
+  title_use_system_font = False
+  title_font = Ubuntu 15
+[keybindings]
+  zoom_in = <Primary>KP_Add
+  zoom_out = <Primary>KP_Subtract
+  split_horiz = <Primary>Down
+  split_vert = <Primary>Right
+  close_term = <Primary>x
+  close_window = <Primary><Shift>o
+  new_window = <Primary>n
+  new_terminator = <Primary><Alt>iacute
+[profiles]
+  [[default]]
+    cursor_color = "#aaaaaa"
+    use_system_font = False
+  [[Gruvbox Dark]]
+    background_color = "#1e1e1e"
+    cursor_color = "#bbbbbb"
+    font = Ubuntu Mono Bold 15
+    foreground_color = "#e6d4a3"
+    palette = "#161819:#f73028:#aab01e:#f7b125:#719586:#c77089:#7db669:#faefbb:#7f7061:#be0f17:#868715:#cc881a:#377375:#a04b73:#578e57:#e6d4a3"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 1498:316
+      maximised = False
+      fullscreen = False
+      size = 654, 432
+      title = adykaaa@adykaaa-mainPC:~/Desktop/dev/go-clean-template
+      last_active_term = 19d2b9a2-f5a0-4be3-be91-51c91a585935
+      last_active_window = True
+    [[[terminal1]]]
+      type = Terminal
+      parent = child0
+      order = 0
+      profile = Gruvbox Dark
+      uuid = 19d2b9a2-f5a0-4be3-be91-51c91a585935
+[plugins]
