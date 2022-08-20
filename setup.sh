@@ -22,6 +22,7 @@ echo \
 sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 sudo groupadd docker && sudo usermod -aG docker $USER && sudo chown $USER /var/run/docker.sock
 sudo systemctl enable docker.service && sudo systemctl enable containerd.service
+sudo chmod 777 /usr/var/docker.sock
 
 
 #installing kubernetes
