@@ -7,6 +7,7 @@ let g:coc_disable_startup_warning = 1
 " Options viewable by using :options
 " Set options viewable by using :set all
 " Or help for individual configs can be accessed :help <name>
+set termwinsize=13x0
 set nocompatible
 set redrawtime=10000
 set background=dark
@@ -17,7 +18,7 @@ set shiftwidth=2
 set expandtab
 set smartindent
 set nu
-set nowrap
+set wrap
 set nobackup
 set undodir=~/.vim/undordir
 set undofile 
@@ -39,6 +40,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Formatter
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+"Auto pair brackets
+Plug 'jiangmiao/auto-pairs'
 
 " Comment and uncomment lines
 Plug 'preservim/nerdcommenter'
@@ -95,7 +99,7 @@ nnoremap <leader><leader>c :call NERDComment(0,"toggle")<CR>
 vnoremap <leader><leader>c :call NERDComment(0,"toggle")<CR>
 nnoremap <leader><Tab> :bnext<CR>
 nnoremap <leader><Tab><Tab> :bprevious<CR>
-
+nnoremap <leader><leader><Down> :botright terminal <CR>
 """"""""""""""""""""""""coc nvim settings start""""""""""""""""""""""""
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
