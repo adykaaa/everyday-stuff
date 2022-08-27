@@ -7,7 +7,7 @@ let g:coc_disable_startup_warning = 1
 " Options viewable by using :options
 " Set options viewable by using :set all
 " Or help for individual configs can be accessed :help <name>
-set termwinsize=13x0
+set termwinsize=10x0
 set nocompatible
 set redrawtime=10000
 set background=dark
@@ -98,6 +98,7 @@ nnoremap <C-p> :GFiles<CR>
 nnoremap <leader><leader>c :call NERDComment(0,"toggle")<CR>
 vnoremap <leader><leader>c :call NERDComment(0,"toggle")<CR>
 nnoremap <leader><Tab> :bnext<CR>
+nnoremap <C-x> :q <CR>
 nnoremap <leader><Tab><Tab> :bprevious<CR>
 nnoremap <leader><leader><Down> :botright terminal <CR>
 """"""""""""""""""""""""coc nvim settings start""""""""""""""""""""""""
