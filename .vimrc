@@ -2,7 +2,7 @@
 syntax on
 
 " Set FZF Default to Ripgrep (must install ripgrep)
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --no-ignore-vcs'
+let $FZF_DEFAULT_COMMAND = 'rg . $HOME --files --hidden --follow --no-ignore-vcs'
 let g:coc_disable_startup_warning = 1
 " Options viewable by using :options
 " Set options viewable by using :set all
