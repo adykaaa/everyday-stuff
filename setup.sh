@@ -32,7 +32,7 @@ sudo apt-get update && sudo apt-get install -y kubectl && echo "source <(kubectl
 
 #setting up dependencies for vim
 sudo apt-get install -y vim nodejs npm ripgrep python3 python3-pip python3-venv wget
-sudo npm cache clean -f && sudo npm install -g n && sudo n stable && sudo npm install --global yarn
+sudo npm cache clean -f && sudo npm install -g n && sudo n stable && sudo npm install --global yarn && sudo npm -g install create-react-app
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
