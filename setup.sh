@@ -5,6 +5,12 @@ sudo apt-get update && apt-get install zsh curl -y && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 sudo apt-get install terminator -y
 
+#Installing nerdfont for NVIM
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+mkdir -p ~/.local/share/fonts
+unzip FiraCode.zip -d ~/.local/share/fonts
+fc-cache -fv
+
 #installing docker
 sudo apt-get install \
     ca-certificates \
