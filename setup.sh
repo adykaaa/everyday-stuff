@@ -3,7 +3,7 @@
 #installing zsh and ohmyzsh
 sudo apt-get update && apt-get install zsh curl -y && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-sudo apt-get install terminator -y
+sudo apt-get install wget terminator -y
 
 #Installing nerdfont for NVIM
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
@@ -37,7 +37,10 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 sudo apt-get update && sudo apt-get install -y kubectl && echo "source <(kubectl completion zsh)" >> ~/.zshrc
 
 #setting up dependencies for vim
-sudo apt-get install -y vim nodejs npm ripgrep python3 python3-pip python3-venv wget
+sudo apt-get install -y vim nodejs npm ripgrep python3 python3-pip python3-venv 
+
+
+
 sudo npm cache clean -f && sudo npm install -g n && sudo n stable && sudo npm install --global yarn && sudo npm -g install create-react-app
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
