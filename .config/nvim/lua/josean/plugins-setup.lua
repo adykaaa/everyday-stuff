@@ -26,6 +26,7 @@ if not status then
 	return
 end
 
+
 -- add list of plugins to install
 return packer.startup(function(use)
 	-- packer can manage itself
@@ -45,6 +46,9 @@ return packer.startup(function(use)
 
 	-- commenting with gc
 	use("numToStr/Comment.nvim")
+  use ({"neoclide/coc.nvim", branch = "release" })
+  use({ "fatih/vim-go", run = ":GoInstallBinaries" })
+  use({ "Shougo/deoplete.nvim", run = ":UpdateRemotePlugins "})
 
 	-- file explorer
 	use("nvim-tree/nvim-tree.lua")

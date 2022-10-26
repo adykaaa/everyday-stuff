@@ -5,11 +5,12 @@ local keymap = vim.keymap -- for conciseness
 ---------------------
 -- General Keymaps
 ---------------------
+keymap.set("i", "<CR>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], {silent = true, noremap = true, expr = true, replace_keycodes = false })
+keymap.set("i", "<CR>", [[coc#pum#visible() ? coc#pum#confirm() : "<C-y>"]], {silent = true, noremap = true, expr = true, replace_keycodes = false })
 
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>")
-
-keymap.set("n","<C-x>",":q<CR>")
+keymap.set("n","<C-x>",":q!<CR>")
 
 -- clear search highlights
 keymap.set("n", "<leader>nh", ":nohl<CR>")

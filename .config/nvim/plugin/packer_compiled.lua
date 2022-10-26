@@ -109,6 +109,16 @@ _G.packer_plugins = {
     path = "/home/adykaaa/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["coc.nvim"] = {
+    loaded = true,
+    path = "/home/adykaaa/.local/share/nvim/site/pack/packer/start/coc.nvim",
+    url = "https://github.com/neoclide/coc.nvim"
+  },
+  ["deoplete.nvim"] = {
+    loaded = true,
+    path = "/home/adykaaa/.local/share/nvim/site/pack/packer/start/deoplete.nvim",
+    url = "https://github.com/Shougo/deoplete.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/adykaaa/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -215,6 +225,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/adykaaa/.local/share/nvim/site/pack/packer/start/typescript.nvim",
     url = "https://github.com/jose-elias-alvarez/typescript.nvim"
+  },
+  ["vim-go"] = {
+    loaded = true,
+    path = "/home/adykaaa/.local/share/nvim/site/pack/packer/start/vim-go",
+    url = "https://github.com/fatih/vim-go"
   },
   ["vim-maximizer"] = {
     loaded = true,
