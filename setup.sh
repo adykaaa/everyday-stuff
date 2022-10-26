@@ -3,7 +3,7 @@
 #installing zsh and ohmyzsh
 sudo apt-get update && apt-get install zsh curl -y && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-sudo apt-get install wget terminator -y
+sudo apt-get install wget terminator neovim -y
 
 #Installing nerdfont for NVIM
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
@@ -51,6 +51,7 @@ wget https://go.dev/dl/go1.19.linux-amd64.tar.gz && \
   sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.19.linux-amd64.tar.gz && \
   echo "export PATH=$PATH:/usr/local/go/bin \n" >> ~/.zshrc && \
   echo "export TERM=xterm-256color \n" >> ~/.zshrc && \
+  echo "alias vim=nvim \n" >> ~/.zshrc
   source ~/.zshrc
 
 #installing terraform and ansible
