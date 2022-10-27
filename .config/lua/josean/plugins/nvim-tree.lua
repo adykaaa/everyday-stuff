@@ -20,8 +20,6 @@ nvimtree.setup({
       },
     },
   },
--- configure nvim-tree
-nvimtree.setup({
 	-- change folder arrow icons
   renderer = {
 		icons = {
