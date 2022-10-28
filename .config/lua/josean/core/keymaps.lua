@@ -16,6 +16,8 @@ vim.keymap.set(
 	{ expr = true, silent = true, replace_keycodes = false }
 )
 
+keymap.set("n", "<leader><leader><Down>", ":ToggleTerm direction=horizontal size=12 <CR>")
+
 -- clear search highlights
 keymap.set("n", "<leader>nh", ":nohl<CR>")
 keymap.set("n", "<S-Up>", ":m .-2<CR>==")
