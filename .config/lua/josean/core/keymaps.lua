@@ -7,8 +7,8 @@ local keymap = vim.keymap -- for conciseness
 ---------------------
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>")
-keymap.set("n", "<C-x>", ":q!<CR>")
-
+keymap.set("n", "<C-x>", ":q<CR>")
+keymap.set("n", "<leader><leader>g", ":LazyGit <CR>")
 keymap.set("n", "<leader><leader><Down>", ":ToggleTerm direction=horizontal size=11 <CR>")
 
 -- clear search highlights

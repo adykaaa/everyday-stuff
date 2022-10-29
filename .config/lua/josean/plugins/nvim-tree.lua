@@ -21,6 +21,9 @@ vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 -- configure nvim-tree
 nvimtree.setup({
 	-- change folder arrow icons
+	remove_keymaps = {
+		{ "<C-x>" },
+	},
 	view = {
 		mappings = {
 			custom_only = false,
