@@ -49,6 +49,7 @@ sudo npm cache clean -f && sudo npm install -g n && sudo n stable && sudo npm in
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+curl -s https://fluxcd.io/install.sh | sudo bash
 
 #installing Go 1.19
 wget https://go.dev/dl/go1.19.linux-amd64.tar.gz && \
