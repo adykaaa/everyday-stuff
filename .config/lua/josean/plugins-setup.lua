@@ -26,6 +26,10 @@ if not status then
 	return
 end
 
+vim.cmd([[
+ let g:go_def_mapping_enabled = 0
+]])
+
 -- add list of plugins to install
 return packer.startup(function(use)
 	-- packer can manage itself

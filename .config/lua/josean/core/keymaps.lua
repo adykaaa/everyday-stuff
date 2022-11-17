@@ -18,7 +18,7 @@ keymap.set("n", "<S-Down>", ":m .+1<CR>==")
 keymap.set("v", "<S-Down>", ":m '>+1<CR>gv=gv")
 keymap.set("v", "<S-Up>", ":m '<-2<CR>gv=gv")
 -- delete single character without copying into register
-keymap.set("n", "x", '"_x')
+-- keymap.set("n", "x", '"_x')
 
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>") -- increment
