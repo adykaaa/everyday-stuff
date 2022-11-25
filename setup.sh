@@ -3,7 +3,15 @@
 #installing zsh and ohmyzsh
 sudo apt-get update && apt-get install zsh curl -y && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-sudo apt-get install wget terminator neovim -y
+sudo apt-get install wget terminator -y
+
+#installing neovim
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+./nvim.appimage --appimage-extract
+./squashfs-root/AppRun --version
+sudo mv squashfs-root /
+sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 
 #Installing nerdfont for NVIM
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
@@ -43,7 +51,7 @@ sudo apt-get update && sudo apt-get install -y kubectl && echo "source <(kubectl
 
 #setting up dependencies for vim
 sudo apt-get install -y vim nodejs npm ripgrep python3 python3-pip python3-venv 
-npm install tree-sitter-cli
+sudo npm install -g tree-sitter-cli
 
 sudo npm cache clean -f && sudo npm install -g n && sudo n stable && sudo npm install --global yarn && sudo npm -g install create-react-app
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
