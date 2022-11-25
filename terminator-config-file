@@ -10,7 +10,6 @@
   split_horiz = <Primary>Down
   split_vert = <Primary>Right
   close_term = <Primary>x
-  close_window = <Primary><Shift>o
   new_window = <Primary>n
   new_terminator = <Primary><Alt>iacute
 [profiles]
