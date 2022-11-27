@@ -1,8 +1,11 @@
 #!/bin/sh
 
 #installing zsh and ohmyzsh
-sudo apt-get update && apt-get install zsh curl -y && chsh -s $(which zsh)
+sudo apt-get update && sudo apt-get install zsh curl -y && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
+
 sudo apt-get install wget terminator -y
 
 #installing neovim
