@@ -10,6 +10,10 @@ return {
             styles = {
                 sidebars = transparent and "transparent" or "dark",
                 floats = transparent and "transparent" or "dark",
+                comments = {},
+                keywords = {},
+                functions = {},
+                variables = {},
             },
         })
 
