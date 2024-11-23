@@ -27,7 +27,6 @@ return {
         mason_lspconfig.setup({
             -- list of servers for mason to install
             ensure_installed = {
-                "tsserver",
                 "html",
                 "cssls",
                 "tailwindcss",
@@ -41,6 +40,7 @@ return {
                 "gopls",
                 "jsonls",
                 "yamlls",
+                "ts_ls",
             },
         })
 
