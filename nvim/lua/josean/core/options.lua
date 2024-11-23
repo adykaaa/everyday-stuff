@@ -37,3 +37,6 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swapfile
 opt.swapfile = false
+
+-- set the distance between the line numbers and the contents of the line
+vim.opt.numberwidth = 4

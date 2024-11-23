@@ -1,8 +1,8 @@
 require("josean.core.options")
 require("josean.core.keymaps")
 
--- Set the normal line numbers to white
-vim.api.nvim_set_hl(0, "LineNr", { fg = "#ffffff", bg = "NONE" })
+-- Set line numbers to a barely visible muted yellow for extreme transparency
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#F5F0E8", bg = "NONE" })
 
--- Set the cursor line number to white
-vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bg = "NONE", bold = true })
+-- Set the cursor line number to a slightly more visible muted yellow with bold for subtle emphasis
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#FAF4EB", bg = "NONE", bold = true })
