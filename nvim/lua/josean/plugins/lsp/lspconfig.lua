@@ -7,131 +7,171 @@ return {
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
-    -- import lspconfig plugin
+    -- Explicitly disable tsserver
+    vim.g.typescript_server = "vtsls"
+
     local lspconfig = require("lspconfig")
-
-    -- import mason_lspconfig plugin
     local mason_lspconfig = require("mason-lspconfig")
-
-    -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    local keymap = vim.keymap -- for conciseness
+    -- Disable tsserver and ts_ls
+    for _, server in ipairs({ "tsserver", "ts_ls" }) do
+      lspconfig[server].setup({
+        autostart = false,
+      })
+    end
 
-    vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-      callback = function(ev)
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf, silent = true }
+    -- vtsls setup
+    lspconfig["vtsls"].setup({
+      capabilities = capabilities,
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+      },
+      root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
+      single_file_support = true,
+      settings = {
+        typescript = {
+          updateImportsOnFileMove = { enabled = "always" },
+          suggest = {
+            completeFunctionCalls = true,
+          },
+          inlayHints = {
+            enumMemberValues = { enabled = true },
+            functionLikeReturnTypes = { enabled = true },
+            parameterNames = { enabled = "literals" },
+            parameterTypes = { enabled = true },
+            propertyDeclarationTypes = { enabled = true },
+            variableTypes = { enabled = false },
+          },
+        },
+        javascript = {
+          updateImportsOnFileMove = { enabled = "always" },
+          suggest = { completeFunctionCalls = true },
+          inlayHints = {
+            enumMemberValues = { enabled = true },
+            functionLikeReturnTypes = { enabled = true },
+            parameterNames = { enabled = "literals" },
+            parameterTypes = { enabled = true },
+            propertyDeclarationTypes = { enabled = true },
+            variableTypes = { enabled = false },
+          },
+        },
+        completions = {
+          completeFunctionCalls = true,
+        },
+      },
+      on_attach = function(client, buffer)
+        -- Keybindings
+        local keymap = vim.keymap
 
-        -- set keybinds
-        opts.desc = "Show LSP references"
-        keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+        -- TypeScript specific commands
+        keymap.set("n", "<leader>co", function()
+          vim.lsp.buf.execute_command({
+            command = "_typescript.organizeImports",
+            arguments = { vim.uri_from_bufnr(0) },
+          })
+        end, { buffer = buffer, desc = "Organize Imports" })
 
-        opts.desc = "Go to declaration"
-        keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+        keymap.set("n", "<leader>cM", function()
+          vim.lsp.buf.execute_command({
+            command = "_typescript.addMissingImports",
+            arguments = { vim.uri_from_bufnr(0) },
+          })
+        end, { buffer = buffer, desc = "Add Missing Imports" })
 
-        opts.desc = "Show LSP definitions"
-        keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+        keymap.set("n", "<leader>cu", function()
+          vim.lsp.buf.execute_command({
+            command = "_typescript.removeUnused",
+            arguments = { vim.uri_from_bufnr(0) },
+          })
+        end, { buffer = buffer, desc = "Remove Unused" })
 
-        opts.desc = "Show LSP implementations"
-        keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+        keymap.set("n", "<leader>cD", function()
+          vim.lsp.buf.execute_command({
+            command = "_typescript.fixAll",
+            arguments = { vim.uri_from_bufnr(0) },
+          })
+        end, { buffer = buffer, desc = "Fix All" })
 
-        opts.desc = "Show LSP type definitions"
-        keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+        keymap.set("n", "gD", function()
+          local params = vim.lsp.util.make_position_params()
+          client.request("workspace/executeCommand", {
+            command = "typescript.goToSourceDefinition",
+            arguments = { params.textDocument.uri, params.position },
+          }, nil, 0)
+        end, { buffer = buffer, desc = "Go to Source Definition" })
 
-        opts.desc = "See available code actions"
-        keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+        keymap.set("n", "gR", function()
+          client.request("workspace/executeCommand", {
+            command = "typescript.findAllFileReferences",
+            arguments = { vim.uri_from_bufnr(0) },
+          }, nil, 0)
+        end, { buffer = buffer, desc = "Find File References" })
 
-        opts.desc = "Smart rename"
-        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+        -- Move to file refactoring
+        client.commands["_typescript.moveToFileRefactoring"] = function(command, ctx)
+          local action, uri, range = unpack(command.arguments)
 
-        opts.desc = "Show buffer diagnostics"
-        keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+          local function move(newf)
+            client.request("workspace/executeCommand", {
+              command = command.command,
+              arguments = { action, uri, range, newf },
+            })
+          end
 
-        opts.desc = "Show line diagnostics"
-        keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
-
-        opts.desc = "Go to previous diagnostic"
-        keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
-
-        opts.desc = "Go to next diagnostic"
-        keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
-
-        opts.desc = "Show documentation for what is under cursor"
-        keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
-        opts.desc = "Restart LSP"
-        keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+          local fname = vim.uri_to_fname(uri)
+          client.request("workspace/executeCommand", {
+            command = "typescript.tsserverRequest",
+            arguments = {
+              "getMoveToRefactoringFileSuggestions",
+              {
+                file = fname,
+                startLine = range.start.line + 1,
+                startOffset = range.start.character + 1,
+                endLine = range["end"].line + 1,
+                endOffset = range["end"].character + 1,
+              },
+            },
+          }, function(_, result)
+            if not result or not result.body then
+              return
+            end
+            local files = result.body.files
+            table.insert(files, 1, "Enter new path...")
+            vim.ui.select(files, {
+              prompt = "Select move destination:",
+              format_item = function(f)
+                return vim.fn.fnamemodify(f, ":~:.")
+              end,
+            }, function(f)
+              if f and f:find("^Enter new path") then
+                vim.ui.input({
+                  prompt = "Enter move destination:",
+                  default = vim.fn.fnamemodify(fname, ":h") .. "/",
+                  completion = "file",
+                }, function(newf)
+                  return newf and move(newf)
+                end)
+              elseif f then
+                move(f)
+              end
+            end)
+          end)
+        end
       end,
     })
 
-    -- used to enable autocompletion (assign to every lsp server config)
-    local capabilities = cmp_nvim_lsp.default_capabilities()
-
-    -- Change the Diagnostic symbols in the sign column (gutter)
-    -- (not in youtube nvim video)
-    local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    end
-
-    mason_lspconfig.setup_handlers({
-      -- default handler for installed servers
-      function(server_name)
-        lspconfig[server_name].setup({
-          capabilities = capabilities,
-        })
-      end,
-      ["svelte"] = function()
-        -- configure svelte server
-        lspconfig["svelte"].setup({
-          capabilities = capabilities,
-          on_attach = function(client, bufnr)
-            vim.api.nvim_create_autocmd("BufWritePost", {
-              pattern = { "*.js", "*.ts" },
-              callback = function(ctx)
-                -- Here use ctx.match instead of ctx.file
-                client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-              end,
-            })
-          end,
-        })
-      end,
-      ["graphql"] = function()
-        -- configure graphql language server
-        lspconfig["graphql"].setup({
-          capabilities = capabilities,
-          filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-        })
-      end,
-      ["emmet_ls"] = function()
-        -- configure emmet language server
-        lspconfig["emmet_ls"].setup({
-          capabilities = capabilities,
-          filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
-        })
-      end,
-      ["lua_ls"] = function()
-        -- configure lua server (with special settings)
-        lspconfig["lua_ls"].setup({
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              -- make the language server recognize "vim" global
-              diagnostics = {
-                globals = { "vim" },
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
-            },
-          },
-        })
-      end,
+    -- Mason configuration
+    mason_lspconfig.setup({
+      ensure_installed = {
+        "vtsls",
+      },
     })
   end,
 }
-
