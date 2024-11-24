@@ -32,7 +32,7 @@ return {
         "lua_ls",
         "emmet_ls",
         "pyright",
-        "vtsls",
+        "ts_ls",
       },
     })
 
