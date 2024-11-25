@@ -5,13 +5,26 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup({ { import = "josean.plugins" }, { import = "josean.plugins.lsp" }, { "LazyVim/LazyVim" } }, {
+require("lazy").setup({
+  { import = "josean.plugins" },
+  { import = "josean.plugins.lsp" },
+  {
+    "LazyVim/LazyVim",
+    import = "lazyvim.plugins",
+    opts = {
+      -- add LazyVim options here
+      defaults = {
+        -- disable LazyVim's neo-tree
+        neo_tree = false,
+      },
+    },
+  },
+}, {
   checker = {
     enabled = true,
     notify = false,

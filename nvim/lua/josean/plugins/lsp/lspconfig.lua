@@ -18,6 +18,9 @@ return {
 
     local keymap = vim.keymap -- for conciseness
 
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e1e1e", fg = "#dcdcdc" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1e1e1e", fg = "#dcdcdc" })
+
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
       callback = function(ev)
