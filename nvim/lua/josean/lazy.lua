@@ -15,14 +15,6 @@ require("lazy").setup({
   { import = "josean.plugins.lsp" },
   {
     "LazyVim/LazyVim",
-    import = "lazyvim.plugins",
-    opts = {
-      -- add LazyVim options here
-      defaults = {
-        -- disable LazyVim's neo-tree
-        neo_tree = false,
-      },
-    },
   },
   {
     "lukas-reineke/indent-blankline.nvim",

@@ -10,6 +10,14 @@ return {
         NonText = { bg = "#171c28" }, -- Workbench background
         Visual = { bg = "#555555" }, -- Adjust this to your desired visual selection color
         CursorLine = { bg = "#232a3a" },
+        WinSeparator = { bg = "#232a3a", fg = "#171c28" }, -- Removes separator lines
+        VertSplit = { bg = "#171c28", fg = "#171c28" }, -- Removes vertical split lines
+        LineNr = { bg = "#171c28" }, -- Background for line numbers
+        EndOfBuffer = { bg = "#171c28" }, -- Background beyond the last line
+        StatusLine = { bg = "#171c28" }, -- Background for the status line
+        StatusLineNC = { bg = "#171c28" }, -- Background for inactive status line
+        CursorColumn = { bg = "#171c28" }, -- Background for inactive status line
+        SignColumn = { bg = "#171c28" }, -- Background for inactive status line
       },
     })
     vim.cmd("colorscheme ayu")
