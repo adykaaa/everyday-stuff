@@ -5,7 +5,12 @@ return {
     require("ayu").setup({
       mirage = false,
       terminal = true, -- Set to `false` to let terminal manage its own colors.
-      overrides = {}, -- A dictionary of group names, each associated with a dictionary of parameters (`bg`, `fg`, `sp` and `style`) and colors in hex.
+      overrides = {
+        Normal = { bg = "#171c28" }, -- Editor background
+        NonText = { bg = "#171c28" }, -- Workbench background
+        Visual = { bg = "#555555" }, -- Adjust this to your desired visual selection color
+        CursorLine = { bg = "#232a3a" },
+      },
     })
     vim.cmd("colorscheme ayu")
   end,

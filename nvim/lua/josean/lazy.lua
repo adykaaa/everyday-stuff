@@ -24,6 +24,10 @@ require("lazy").setup({
       },
     },
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = false, -- Disable the plugin
+  },
 }, {
   checker = {
     enabled = true,
