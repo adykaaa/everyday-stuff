@@ -4,7 +4,8 @@ local keymap = vim.keymap -- for conciseness
 
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
-keymap.set("n", "<C-t>", "<cmd>ToggleTerm direction=float<CR>")
+keymap.set("n", "<C-t>", "<cmd>ToggleTerm<CR>")
+keymap.set("n", "<C-f>", "<cmd>ToggleTerm direction=float<CR>")
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically

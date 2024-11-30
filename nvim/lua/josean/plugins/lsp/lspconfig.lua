@@ -85,6 +85,22 @@ return {
           capabilities = capabilities,
         })
       end,
+      ["yamlls"] = function()
+        lspconfig["yamlls"].setup({
+          capabilities = capabilities,
+          on_attach = function(client)
+            -- Disable formatting for yamlls
+            client.server_capabilities.documentFormattingProvider = false
+          end,
+          settings = {
+            yaml = {
+              format = {
+                enable = false, -- Disables formatting completely
+              },
+            },
+          },
+        })
+      end,
       ["lua_ls"] = function()
         -- configure lua server (with special settings)
         lspconfig["lua_ls"].setup({

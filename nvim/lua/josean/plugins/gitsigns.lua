@@ -33,10 +33,10 @@ return {
       map("n", "<leader>hb", function()
         gs.blame_line({ full = true })
       end, "Blame line")
-      map("n", "<leader>hB", gs.toggle_current_line_blame, "Toggle line blame")
+      map("n", "<leader>gB", gs.toggle_current_line_blame, "Toggle line blame")
 
-      map("n", "<leader>hd", gs.diffthis, "Diff this")
-      map("n", "<leader>hD", function()
+      map("n", "<leader>gd", gs.diffthis, "Diff this")
+      map("n", "<leader>gD", function()
         gs.diffthis("~")
       end, "Diff this ~")
 
