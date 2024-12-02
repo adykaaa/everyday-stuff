@@ -10,7 +10,9 @@ return {
     opts = {
       adapters = {
         ["neotest-vitest"] = {},
-        ["neotest-jest"] = {},
+        ["neotest-jest"] = {
+          command = "npx jest",
+        },
         ["neotest-go"] = {
           extra_args = { "-race" },
         },
