@@ -34,6 +34,7 @@ return {
         "pyright",
         "ts_ls",
         "yamlls",
+        "gopls",
       },
     })
 
