@@ -19,7 +19,7 @@ sudo mv squashfs-root /
 sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 
 #install nerdfont for NVIM
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Meslo.zip
 mkdir -p ~/.local/share/fonts
 unzip FiraCode.zip -d ~/.local/share/fonts
 fc-cache -fv
