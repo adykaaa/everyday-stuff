@@ -1,14 +1,16 @@
 #!/bin/sh
 
-#installing zsh and ohmyzsh
-sudo apt-get update && sudo apt-get install zsh curl -y && chsh -s $(which zsh)
+#install zsh and ohmyzsh
+sudo apt-get update && sudo apt-get install zsh curl wget -y && chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 echo "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" >> ~/.zshrc
 
-sudo apt-get install wget terminator -y
+#install nodeJS v22
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+nvm install 22
 
-#installing neovim
+#install neovim
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 ./nvim.appimage --appimage-extract
@@ -16,18 +18,18 @@ chmod u+x nvim.appimage
 sudo mv squashfs-root /
 sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 
-#Installing nerdfont for NVIM
+#install nerdfont for NVIM
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
 mkdir -p ~/.local/share/fonts
 unzip FiraCode.zip -d ~/.local/share/fonts
 fc-cache -fv
 
-#installing lazygit
+#install lazygit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep '"tag_name":' |  sed -E 's/.*"v*([^"]+)".*/\1/')
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 sudo tar xf lazygit.tar.gz -C /usr/local/bin lazygit && rm lazygit.tar.gz
 
-#installing docker
+#install utils
 sudo apt-get install \
     ca-certificates \
     curl \
@@ -36,54 +38,26 @@ sudo apt-get install \
     software-properties-common \
     apt-transport-https -y
 
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
-sudo groupadd docker && sudo usermod -aG docker $USER && sudo chown $USER /var/run/docker.sock
-sudo systemctl enable docker.service && sudo systemctl enable containerd.service
-sudo chmod 777 /usr/var/docker.sock
-
-
-#installing kubernetes
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update && sudo apt-get install -y kubectl && echo "source <(kubectl completion zsh)" >> ~/.zshrc
-
-#setting up dependencies for vim
-sudo apt-get install -y vim nodejs npm ripgrep python3 python3-pip python3-venv 
+#set up dependencies for vim
+sudo apt-get install -y vim ripgrep python3 python3-pip python3-venv fzf
 sudo npm install -g tree-sitter-cli
 
-sudo npm cache clean -f && sudo npm install -g n && sudo n stable && sudo npm install --global yarn && sudo npm -g install create-react-app
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-curl -s https://fluxcd.io/install.sh | sudo bash
-
-#installing Go 1.19
-wget https://go.dev/dl/go1.19.linux-amd64.tar.gz && \
-  sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.19.linux-amd64.tar.gz && \
+#install Go
+wget https://go.dev/dl/go1.23.4.linux-amd64.tar.gz && \
+  sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.4.linux-amd64.tar.gz && \
   echo "export PATH=$PATH:/usr/local/go/bin \n" >> ~/.zshrc && \
-  echo "export TERM=xterm-256color \n" >> ~/.zshrc && \
   echo "alias vim=nvim \n" >> ~/.zshrc
   source ~/.zshrc
 
-#installing terraform and ansible
-wget -O- https://apt.releases.hashicorp.com/gpg | \
-    gpg --dearmor | \
-    sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
-gpg --no-default-keyring \
-    --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
-    --fingerprint
-echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
-    https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-    sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update && sudo apt-get install terraform -y
-python3 -m pip install --user ansible
+#install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+. "$HOME/.cargo/env"
 
-#installing K3d
+#install Docker
+wget -O docker-desktop-amd64.deb "https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64"
+sudo apt-get install ./docker-desktop-amd64.deb
+systemctl --user enable docker-desktop
+
+#install K3d
 wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 k3d cluster create local-cluster
-echo " \n \n \n ==== Copy .vimrc from the repo, then open vim and do PlugInstall, CocInstall coc-pyright, CocInstall coc-tsserver, CocInstall coc-go, :GoInstallBinaries ===="
