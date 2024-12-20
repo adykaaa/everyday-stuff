@@ -58,6 +58,18 @@ wget -O docker-desktop-amd64.deb "https://desktop.docker.com/linux/main/amd64/do
 sudo apt-get install ./docker-desktop-amd64.deb
 systemctl --user enable docker-desktop
 
+#install Warp
+curl -sSL https://app.warp.dev/download/signing_key.pub | sudo gpg --dearmor --yes -o /usr/share/keyrings/warp-archive-keyring.gpg && echo "deb [signed-by=/usr/share/keyrings/warp-archive-keyring.gpg] https://app.warp.dev/pkg/deb stable main" | sudo tee /etc/apt/sources.list.d/warp.list > /dev/null && sudo apt update && sudo apt install warp-terminal
+
 #install K3d
 wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 k3d cluster create local-cluster
+
+#set Neovim config
+cp -r nvim/ ~/.config/nvim
+
+#start neovim
+nvim .
+
+#echo last instructions
+echo "Set the font type to the nerdfont in Warp so that it can render nice graphics in Neovim!"
