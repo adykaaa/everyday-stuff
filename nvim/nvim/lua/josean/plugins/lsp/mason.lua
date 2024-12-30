@@ -35,7 +35,6 @@ return {
         "ts_ls",
         "yamlls",
         "gopls",
-        "rust_analyzer",
       },
     })
 
