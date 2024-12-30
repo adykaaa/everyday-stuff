@@ -129,14 +129,6 @@ return {
           },
         })
       end,
-      ["rust_analyzer"] = function()
-        lspconfig["rust_analyzer"].setup({
-          capabilities = capabilities,
-          cargo = {
-            allFeatures = true,
-          },
-        })
-      end,
     })
   end,
 }

@@ -55,6 +55,7 @@ wget https://go.dev/dl/go1.23.4.linux-amd64.tar.gz && \
 #install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 . "$HOME/.cargo/env"
+rustup component add rust-analyzer
 
 #install Docker
 wget -O docker-desktop-amd64.deb "https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64"
